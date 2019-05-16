@@ -1,0 +1,58 @@
+{
+    "family": "twitterstream", 
+    "networkMode": "awsvpc", 
+    "executionRoleArn": "arn:aws:iam::AWSACCOUNT:role/twitterstream-task-execution-role",
+    "taskRoleArn": "arn:aws:iam::AWSACCOUNT:role/twitterstream-task-role",
+    "containerDefinitions": [
+        {
+            "name": "twitterstream", 
+            "image": "AWSACCOUNT.dkr.ecr.DEPLOYMENTREGION.amazonaws.com/twitterstream:latest", 
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DYNAMODBTABLE",
+                    "value": "twitterStream"
+                },
+                {
+                    "name": "AWSREGION",
+                    "value": "DEPLOYMENTREGION"
+                },                
+                {
+                    "name": "FILTER",
+                    "value": "Amazon"
+                }
+            ],    
+            "secrets": [
+                {
+                    "name": "CONSUMERKEY",
+                    "valueFrom": "arn-CONSUMERKEY"
+                },
+                {
+                    "name": "CONSUMERSECRETKEY",
+                    "valueFrom": "arn-CONSUMERSECRETKEY"
+                },
+                {
+                    "name": "ACCESSTOKEN",
+                    "valueFrom": "arn-BASEACCESSTOKEN"
+                },
+                {
+                    "name": "ACCESSTOKENSECRET",
+                    "valueFrom": "arn-ACCESSTOKENSECRET"
+                }
+            ],
+            "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                            "awslogs-group": "twitterstream",
+                            "awslogs-region": "DEPLOYMENTREGION",
+                            "awslogs-stream-prefix": "twitterstream"
+                    }
+            }
+        }
+    ], 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ], 
+    "cpu": "256", 
+    "memory": "512"
+}
