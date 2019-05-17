@@ -20,7 +20,7 @@ consumer_key=os.environ['CONSUMERKEY']
 consumer_secret=os.environ['CONSUMERSECRETKEY']
 
 # After the step above, you will be redirected to your app's page.
-# Create an access token under the the "Your access token" section
+# Create an access token under the "Your access token" section
 access_token=os.environ['ACCESSTOKEN']
 access_token_secret=os.environ['ACCESSTOKENSECRET']
 

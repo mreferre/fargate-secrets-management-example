@@ -8,6 +8,8 @@ The architecture of the application is as follows:
 
 The Fargate task contains a small Python application that reads a feed from Twitter and parse it through a `FILTER` (you can customize the filter in the `twitterstream-task.json` file otherwise the default `Amazon` value will be used). Some of the fields of the filtered data set are saved into a DynamoDB table. 
 
+The python script that reads the feed and puts the filtered data set into the database is based off of [this code](https://github.com/tweepy/tweepy/blob/master/examples/streaming.py) in the `tweepy` GitHub [repo](https://github.com/tweepy/tweepy).
+
 Ultimately this example is aimed at underlining how the Fargate IAM task role can be used to mediate the access to AWS services (DynamoDB in this case), while the integration with AWS Secrets Manager allows for storing securily third party credentials (Twitter in this case). 
 
 #### Setup instructions
@@ -17,7 +19,8 @@ Note I have only tested this from a Cloud9 environment (nee Linux). I haven't te
 You also need to set these systems variables. The subnets and security group can be the default one in the default VPC in the region of your choice: 
 
 ```
-export AWSACCOUNT=123456789012                                                                              export SUBNET1=subnet-87654321
+export AWSACCOUNT=123456789012
+export SUBNET1=subnet-87654321
 export SUBNET2=subnet-12345678
 export SECURITYGROUP=sg-12345678
 export REGION=us-west-2
